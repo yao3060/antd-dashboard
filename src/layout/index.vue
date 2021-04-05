@@ -2,36 +2,7 @@
   <a-layout id="components-layout">
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="logo" />
-      <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
-        <a-menu-item key="1">
-          <DashboardOutlined />
-          <span><router-link to="/">Dashboard</router-link></span>
-        </a-menu-item>
-        <a-sub-menu key="users">
-          <template #title>
-            <span>
-              <UserOutlined />
-              <span>Users</span>
-            </span>
-          </template>
-          <a-menu-item key="all_users">Users</a-menu-item>
-          <a-menu-item key="add_users">Add</a-menu-item>
-          <a-menu-item key="roles">Roles</a-menu-item>
-        </a-sub-menu>
-        <a-menu-item key="2">
-          <UserOutlined />
-          <span>Users</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <upload-outlined />
-          <span>404</span>
-        </a-menu-item>
-
-        <a-menu-item key="4">
-          <upload-outlined />
-          <span><router-link to="/about">Go to About</router-link></span>
-        </a-menu-item>
-      </a-menu>
+      <SiderMenu />
     </a-layout-sider>
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0">
@@ -51,7 +22,7 @@
           margin: '24px 16px',
           padding: '24px',
           background: '#fff',
-          minHeight: '280px',
+          minHeight: contentMinHeight + 'px',
         }"
       >
         <router-view />
@@ -60,39 +31,32 @@
   </a-layout>
 </template>
 <script>
-import {
-  DashboardOutlined,
-  UserOutlined,
-  UploadOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from "@ant-design/icons-vue";
-import { defineComponent, ref, computed } from "vue";
-import { useStore } from "vuex";
+import SiderMenu from "./components/SiderMenu"
+import { defineComponent, ref, computed } from "vue"
+import { useStore } from "vuex"
 
 export default defineComponent({
   name: "Layout",
   components: {
-    DashboardOutlined,
-    UserOutlined,
-    UploadOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
+    SiderMenu
   },
 
   setup() {
-    const store = useStore();
-    console.log(store.state.settings.fixedHeader);
-    const fixedHeader = computed(() => store.state.settings.fixedHeader);
-    const sidebarLogo = computed(() => store.state.settings.sidebarLogo);
+    const store = useStore()
+    console.log(store.state.settings.fixedHeader)
+    const fixedHeader = computed(() => store.state.settings.fixedHeader)
+    const sidebarLogo = computed(() => store.state.settings.sidebarLogo)
+    let contentMinHeight = ref(window.innerHeight - 64 - 24 - 24)
+
     return {
       fixedHeader,
       sidebarLogo,
       selectedKeys: ref(["1"]),
       collapsed: ref(false),
-    };
+      contentMinHeight
+    }
   },
-});
+})
 </script>
 <style>
 #components-layout .trigger {
