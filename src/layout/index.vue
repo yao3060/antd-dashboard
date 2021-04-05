@@ -4,12 +4,23 @@
       <div class="logo" />
       <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
         <a-menu-item key="1">
-          <user-outlined />
-          <span><router-link to="/">Go to Home</router-link></span>
+          <DashboardOutlined />
+          <span><router-link to="/">Dashboard</router-link></span>
         </a-menu-item>
+        <a-sub-menu key="users">
+          <template #title>
+            <span>
+              <UserOutlined />
+              <span>Users</span>
+            </span>
+          </template>
+          <a-menu-item key="all_users">Users</a-menu-item>
+          <a-menu-item key="add_users">Add</a-menu-item>
+          <a-menu-item key="roles">Roles</a-menu-item>
+        </a-sub-menu>
         <a-menu-item key="2">
-          <video-camera-outlined />
-          <span>About</span>
+          <UserOutlined />
+          <span>Users</span>
         </a-menu-item>
         <a-menu-item key="3">
           <upload-outlined />
@@ -29,10 +40,19 @@
           class="trigger"
           @click="() => (collapsed = !collapsed)"
         />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+        <menu-fold-outlined
+          v-else
+          class="trigger"
+          @click="() => (collapsed = !collapsed)"
+        />
       </a-layout-header>
       <a-layout-content
-        :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
+        :style="{
+          margin: '24px 16px',
+          padding: '24px',
+          background: '#fff',
+          minHeight: '280px',
+        }"
       >
         <router-view />
       </a-layout-content>
@@ -41,25 +61,34 @@
 </template>
 <script>
 import {
+  DashboardOutlined,
   UserOutlined,
-  VideoCameraOutlined,
   UploadOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-} from '@ant-design/icons-vue';
-import { defineComponent, ref } from 'vue';
+} from "@ant-design/icons-vue";
+import { defineComponent, ref, computed } from "vue";
+import { useStore } from "vuex";
+
 export default defineComponent({
+  name: "Layout",
   components: {
+    DashboardOutlined,
     UserOutlined,
-    VideoCameraOutlined,
     UploadOutlined,
     MenuUnfoldOutlined,
     MenuFoldOutlined,
   },
 
   setup() {
+    const store = useStore();
+    console.log(store.state.settings.fixedHeader);
+    const fixedHeader = computed(() => store.state.settings.fixedHeader);
+    const sidebarLogo = computed(() => store.state.settings.sidebarLogo);
     return {
-      selectedKeys: ref(['1']),
+      fixedHeader,
+      sidebarLogo,
+      selectedKeys: ref(["1"]),
       collapsed: ref(false),
     };
   },
@@ -79,7 +108,7 @@ export default defineComponent({
 }
 
 .ant-menu-dark .ant-menu-item a {
-  color:rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .ant-menu-dark .ant-menu-item-selected .router-link-active {
