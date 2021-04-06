@@ -13,11 +13,11 @@
       </template>
       <a-menu-item key="all_users">
         <TeamOutlined />
-        <span>{{ $t("route.users") }}</span>
+        <span><router-link to="/users">{{ $t("route.users") }}</router-link></span>
       </a-menu-item>
       <a-menu-item key="add_users">
         <UserAddOutlined />
-        <span>Add</span>
+        <span><router-link to="/users/add">{{ $t("route.add_users") }}</router-link></span>
       </a-menu-item>
       <a-sub-menu key="permission">
         <template #title>
@@ -26,8 +26,12 @@
             <span>Permission</span>
           </span>
         </template>
-        <a-menu-item key="roles">Roles</a-menu-item>
-        <a-menu-item key="permissions">Permissions</a-menu-item>
+        <a-menu-item key="roles">
+          <span><router-link to="/users/permission/roles">{{ $t("route.roles") }}</router-link></span>
+        </a-menu-item>
+        <a-menu-item key="permissions">
+          <span><router-link to="/users/permission/permissions">{{ $t("route.permissions") }}</router-link></span>
+        </a-menu-item>
       </a-sub-menu>
     </a-sub-menu>
     <a-menu-item key="2">
@@ -47,7 +51,8 @@
 
 <script>
 import {
-  DashboardOutlined, TeamOutlined,
+  DashboardOutlined,
+  TeamOutlined,
   UserAddOutlined,
   SafetyOutlined,
   UploadOutlined,

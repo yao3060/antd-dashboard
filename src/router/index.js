@@ -1,25 +1,77 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router"
 
 /* Layout */
 import Layout from '@/layout/index'
 
 const routes = [
-    { 
-        path: '/', 
+    {
+        path: '/',
         component: Layout,
+        meta:{
+          name: 'Dashboard'
+        },
         children: [
             {
               path: '/',
-              component: () => import(/* webpackChunkName: "page-home" */ '@/pages/Home') 
+              breadcrumbName: 'Home',
+              component: () => import(/* webpackChunkName: "page-home" */ '@/pages/Home')
             },
             {
                 path: '/about',
-                component: () => import(/* webpackChunkName: "page-about" */ '@/pages/About') 
+                breadcrumbName: 'About',
+                component: () => import(/* webpackChunkName: "page-about" */ '@/pages/About')
             }
         ]
     },
-    { 
-        path: '/404', 
+    {
+        path: '/users',
+        component: Layout,
+        meta:{
+          name: 'Users'
+        },
+        children: [
+          {
+            path: '/users',
+            meta:{
+              name: 'Users'
+            },
+            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index')
+          },
+          {
+            path: 'add',
+            meta:{
+              name: 'Add'
+            },
+            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index')
+          },
+          {
+            path: 'permission',
+            meta:{
+              name: 'Permission'
+            },
+            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index'),
+            children: [
+              {
+                path: 'roles',
+                meta:{
+                  name: 'Roles'
+                },
+                component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index')
+              },
+              {
+                path: 'permissions',
+                meta:{
+                  name: 'Permissions'
+                },
+                component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index')
+              }
+            ]
+          }
+        ]
+    },
+    {
+        path: '/404',
+        breadcrumbName: '404',
         component: () => import('@/pages/errors/404')
     },
 ]

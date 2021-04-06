@@ -6,47 +6,45 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0">
-        <menu-unfold-outlined
+        <MenuUnfoldOutlined
           v-if="collapsed"
           class="trigger"
           @click="() => (collapsed = !collapsed)"
         />
-        <menu-fold-outlined
+        <MenuUnfoldOutlined
           v-else
           class="trigger"
           @click="() => (collapsed = !collapsed)"
         />
+        <Breadcrumb style="display:inline-block;" />
       </a-layout-header>
-      <a-layout-content
-        :style="{
-          margin: '24px 16px',
-          padding: '24px',
-          background: '#fff',
-          minHeight: contentMinHeight + 'px',
-        }"
-      >
+      <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: contentMinHeight + 'px' }">
         <router-view />
       </a-layout-content>
+      <a-layout-footer :style="{ textAlign: 'center' }">
+        Ant Design ©2018 Created by Ant UED
+      </a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
 <script>
+
+import { MenuUnfoldOutlined } from "@ant-design/icons-vue"
 import SiderMenu from "./components/SiderMenu"
+import Breadcrumb from "./components/Breadcrumb"
 import { defineComponent, ref, computed } from "vue"
 import { useStore } from "vuex"
 
 export default defineComponent({
   name: "Layout",
   components: {
-    SiderMenu
+    SiderMenu, MenuUnfoldOutlined, Breadcrumb
   },
-
   setup() {
     const store = useStore()
-    console.log(store.state.settings.fixedHeader)
     const fixedHeader = computed(() => store.state.settings.fixedHeader)
     const sidebarLogo = computed(() => store.state.settings.sidebarLogo)
-    let contentMinHeight = ref(window.innerHeight - 64 - 24 - 24)
+    let contentMinHeight = ref(window.innerHeight - 160)
 
     return {
       fixedHeader,

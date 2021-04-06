@@ -7,6 +7,13 @@ import store from './store'
 import router from './router'
 import i18n from './lang'
 
+/**
+ * please remove it before going online ! ! !
+ */
+if (process.env.NODE_ENV !== 'production') {
+  require('../mock')
+}
+
 const app = createApp(App)
 app.config.productionTip = false
 
