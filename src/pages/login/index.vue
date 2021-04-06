@@ -9,7 +9,7 @@
         @finishFailed="handleFinishFailed"
       >
         <a-form-item>
-          <a-input v-model:value="formState.user" placeholder="Username">
+          <a-input v-model:value="formState.username" placeholder="Username">
             <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
           </a-input>
         </a-form-item>
@@ -22,7 +22,7 @@
           <a-button
             type="primary"
             html-type="submit"
-            :disabled="formState.user === '' || formState.password === ''"
+            :disabled="formState.username === '' || formState.password === ''"
           >
             Log in
           </a-button>
@@ -36,6 +36,8 @@
 import Footer from "@/components/Footer"
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { defineComponent, reactive } from 'vue'
+import { useStore } from 'vuex'
+
 export default defineComponent({
 
   components: {
@@ -45,12 +47,15 @@ export default defineComponent({
   },
   setup() {
     const formState = reactive({
-      user: '',
-      password: '',
+      username: 'admin',
+      password: 'password',
     })
+    const store = useStore()
 
     const handleFinish = values => {
       console.log(values, formState)
+
+      return store.dispatch('users/login', formState)
     }
 
     const handleFinishFailed = errors => {
