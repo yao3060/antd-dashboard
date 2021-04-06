@@ -31,7 +31,7 @@ const routes = [
         },
         children: [
           {
-            path: '/users',
+            path: 'index',
             meta:{
               name: 'Users'
             },

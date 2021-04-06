@@ -17,6 +17,7 @@
           @click="() => (collapsed = !collapsed)"
         />
         <Breadcrumb style="display:inline-block;" />
+        <Navbar style="display:inline-block;" />
       </a-layout-header>
       <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: contentMinHeight + 'px' }">
         <router-view />
@@ -32,13 +33,15 @@
 import { MenuUnfoldOutlined } from "@ant-design/icons-vue"
 import SiderMenu from "./components/SiderMenu"
 import Breadcrumb from "./components/Breadcrumb"
+import Navbar from "./components/Navbar"
+
 import { defineComponent, ref, computed } from "vue"
 import { useStore } from "vuex"
 
 export default defineComponent({
   name: "Layout",
   components: {
-    SiderMenu, MenuUnfoldOutlined, Breadcrumb
+    SiderMenu, MenuUnfoldOutlined, Breadcrumb, Navbar
   },
   setup() {
     const store = useStore()

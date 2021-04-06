@@ -1,6 +1,6 @@
 <template>
   <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-    <a-menu-item key="1">
+    <a-menu-item key="dashboard">
       <DashboardOutlined />
       <span><router-link to="/">{{ $t("route.dashboard") }}</router-link></span>
     </a-menu-item>
@@ -11,11 +11,11 @@
           <span>{{ $t("route.users") }}</span>
         </span>
       </template>
-      <a-menu-item key="all_users">
+      <a-menu-item key="usersindex">
         <TeamOutlined />
-        <span><router-link to="/users">{{ $t("route.users") }}</router-link></span>
+        <span><router-link to="/users/index">{{ $t("route.users") }}</router-link></span>
       </a-menu-item>
-      <a-menu-item key="add_users">
+      <a-menu-item key="usersadd">
         <UserAddOutlined />
         <span><router-link to="/users/add">{{ $t("route.add_users") }}</router-link></span>
       </a-menu-item>
@@ -26,10 +26,10 @@
             <span>Permission</span>
           </span>
         </template>
-        <a-menu-item key="roles">
+        <a-menu-item key="userspermissionroles">
           <span><router-link to="/users/permission/roles">{{ $t("route.roles") }}</router-link></span>
         </a-menu-item>
-        <a-menu-item key="permissions">
+        <a-menu-item key="userspermissionpermissions">
           <span><router-link to="/users/permission/permissions">{{ $t("route.permissions") }}</router-link></span>
         </a-menu-item>
       </a-sub-menu>
@@ -58,6 +58,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons-vue"
 import { ref } from "vue"
+import { useRoute } from 'vue-router'
 
 export default {
   name: "SiderMenu",
@@ -69,8 +70,11 @@ export default {
     UploadOutlined,
   },
   setup() {
+    let route = useRoute()
+    let selectedKeys = ref([route.path.replaceAll('/', '')])
     return {
-      selectedKeys: ref(["1"]),
+      // route,
+      selectedKeys,
     }
   },
 }
