@@ -24,7 +24,7 @@ export default defineComponent({
         breadcrumbName: 'Dashboard',
     }
 
-    watch(() => {
+    watch(() => route.path, () => {
       routes.value = [baseRoute]
       if(route.fullPath != '/') {
         route.matched.map(item => {
