@@ -7,3 +7,10 @@ export function login(data) {
     data
   })
 }
+
+export function me() {
+  return request({
+    url: '/api-server/users/v1/me',
+    method: 'get'
+  })
+}

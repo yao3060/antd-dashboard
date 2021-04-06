@@ -4,6 +4,11 @@ import { createRouter, createWebHashHistory } from "vue-router"
 import Layout from '@/layout/index'
 
 const routes = [
+  {
+    path: '/login',
+    component: () => import('@/pages/login/index'),
+    hidden: true
+  },
     {
         path: '/',
         component: Layout,
@@ -35,35 +40,35 @@ const routes = [
             meta:{
               name: 'Users'
             },
-            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index')
+            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/users/Index')
           },
           {
             path: 'add',
             meta:{
               name: 'Add'
             },
-            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index')
+            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/users/Index')
           },
           {
             path: 'permission',
             meta:{
               name: 'Permission'
             },
-            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index'),
+            component: () => import(/* webpackChunkName: "page-users" */ '@/pages/users/Index'),
             children: [
               {
                 path: 'roles',
                 meta:{
                   name: 'Roles'
                 },
-                component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index')
+                component: () => import(/* webpackChunkName: "page-users" */ '@/pages/users/Index')
               },
               {
                 path: 'permissions',
                 meta:{
                   name: 'Permissions'
                 },
-                component: () => import(/* webpackChunkName: "page-users" */ '@/pages/Users/Index')
+                component: () => import(/* webpackChunkName: "page-users" */ '@/pages/users/Index')
               }
             ]
           }

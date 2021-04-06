@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import { login } from "@/api/users"
+import { login, me } from "@/api/users"
 export default {
   name: "HomePage",
   methods: {
@@ -13,6 +13,11 @@ export default {
         username:'admin',
         passowrd: 'password'
       })
+      console.log(response)
+      this.getProfile()
+    },
+    async getProfile(){
+      let response = await me()
       console.log(response)
     }
   }

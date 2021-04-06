@@ -17,6 +17,7 @@ Mock.mock('/api-server/users/v1/me', {
     username: 'admin',
     display_name: 'YYY',
     phone_number: 12523245677,
+    avatar: 'https://i.pravatar.cc/300',
     roles: ['administrator'],
     permissions: ['read', 'manage_settings']
   }
